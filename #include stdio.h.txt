@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Symbol {
+    char name[20];
+    char type[20];
+    int address;
+};
+
+struct Symbol table[MAX];
+int count = 0;
+
+// Insert a symbol
+void insertSymbol() {
+    printf("Enter Symbol Name: ");
+    scanf("%s", table[count].name);
+
+    printf("Enter Data Type: ");
+    scanf("%s", table[count].type);
+
+    table[count].address = 1000 + count;
+    count++;
+
+    printf("Symbol inserted successfully.\n");
+}
+
+// Display symbol table
+void displayTable() {
+    int i;
+
+    if (count == 0) {
+        printf("Symbol Table is empty.\n");
+        return;
+    }
+
+    printf("\n-----------------------------------------\n");
+    printf("Symbol\t\tType\t\tAddress\n");
+    printf("-----------------------------------------\n");
+
+    for (i = 0; i < count; i++) {
+        printf("%s\t\t%s\t\t%d\n",
+               table[i].name,
+               table[i].type,
+               table[i].address);
+    }
+}
+
+// Search a symbol
+void searchSymbol() {
+    char key[20];
+    int i, found = 0;
+
+    printf("Enter symbol to search: ");
+    scanf("%s", key);
+
+    for (i = 0; i < count; i++) {
+        if (strcmp(table[i].name, key) == 0) {
+            printf("Symbol Found!\n");
+            printf("Name    : %s\n", table[i].name);
+            printf("Type    : %s\n", table[i].type);
+            printf("Address : %d\n", table[i].address);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+        printf("Symbol not found.\n");
+}
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("\n--- Symbol Table Menu ---\n");
+        printf("1. Insert Symbol\n");
+        printf("2. Display Symbol Table\n");
+        printf("3. Search Symbol\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                insertSymbol();
+                break;
+            case 2:
+                displayTable();
+                break;
+            case 3:
+                searchSymbol();
+                break;
+            case 4:
+                return 0;
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+
+    return 0;
+}
+vvv
